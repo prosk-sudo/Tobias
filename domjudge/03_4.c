@@ -1,42 +1,21 @@
 #include <stdio.h>
-#include <math.h>
 
-#define ld long double
+int elapsedTime(int v, int g, int t) {
+	int time = 0;
 
-ld function(ld p, int n, int c, int r) {
-	return pow(p, n-1) * (1 - pow(1-p, n)) * r - c;
-}
-
-ld derivative(ld p, int n, int r) {
-	return r * (n-1) * pow(p, n-2) * (1 - pow(1-p, n)) + r * n * pow(p, n-1) * pow(1-p, n-1);
-}
-
-ld pFinder(int n, ld c, ld r) {
-	ld p = 0.5;
-
-	for (int i = 0; i < pow(10, 8); i++) {
-		ld fValue = function(p, n, c, r);
-	    	ld fPrime = derivative(p, n, r);
-
-		p = p - fValue / fPrime;
-
-		if (fabs(fValue) < 1e-7) {
-			return p;
-		}
+	while (v < t) {
+		time += 1;
+		v += v * g;
 	}
 
-	return p;
+	printf("%d\n", time);
+	return time;
 }
 
 int main() {
-	int n;
-	int c;
-	int r;
+	int v, g, t;
+	scanf("%d %d %d", &v, &g, &t);
 
-    scanf("%d %d %d", &n, &c, &r);
-
-	ld p = pFinder(n, c, r);
-
-	printf("%.15Lf\n", p);
+	elapsedTime(v, g, t);
 	return 0;
 }
